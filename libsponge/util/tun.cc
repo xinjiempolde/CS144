@@ -4,10 +4,11 @@
 
 #include <cstring>
 #include <fcntl.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <linux/if.h>
 #include <linux/if_tun.h>
 #include <sys/ioctl.h>
-
 static constexpr const char *CLONEDEV = "/dev/net/tun";
 
 using namespace std;
