@@ -20,12 +20,29 @@ class TCPReceiver {
     //! The maximum number of bytes we'll store.
     size_t _capacity;
 
+    //! Initial sequence number
+    WrappingInt32 _isn;
+
+    //! Is isn set?
+    bool _isn_flag;
+
+    //! ack number
+    WrappingInt32 _ackno;
+    
+    //! checkpoint for convert absolute sequence number(uint64_t) to sequence number(WrappingInt32)
+    uint64_t checkpoint;
   public:
     //! \brief Construct a TCP receiver
     //!
     //! \param capacity the maximum number of bytes that the receiver will
     //!                 store in its buffers at any give time.
-    TCPReceiver(const size_t capacity) : _reassembler(capacity), _capacity(capacity) {}
+    TCPReceiver(const size_t capacity) :
+       _reassembler(capacity),
+       _capacity(capacity),
+       _isn(0), 
+       _isn_flag(false),
+       _ackno(0),
+       checkpoint(0) {}
 
     //! \name Accessors to provide feedback to the remote TCPSender
     //!@{
